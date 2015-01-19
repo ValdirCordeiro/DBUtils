@@ -8,10 +8,12 @@ package dbutils;
 import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
 import conexoes.clBuscaResultSet;
 import java.awt.Color;
+import java.awt.HeadlessException;
 import java.util.List;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -32,15 +34,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
     public TelaPrincipal() {
         initComponents();
 
-        try {
-            Properties props = new Properties();
-            props.put("logoString", "PragmaSUM");
-            AluminiumLookAndFeel.setCurrentTheme(props);
-            UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
-            SwingUtilities.updateComponentTreeUI(this);
-        } catch (Exception e) {
-            // TODO: handle exception
-        }
+        /*
+         try {
+         Properties props = new Properties();
+         props.put("logoString", "PragmaSUM");
+         AluminiumLookAndFeel.setCurrentTheme(props);
+         UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
+         SwingUtilities.updateComponentTreeUI(this);
+         } catch (Exception e) {
+         // TODO: handle exception
+         }*/
     }
 
     /**
@@ -61,16 +64,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
         tabelaEntrada = new javax.swing.JTextField();
         ImportarGenerico = new javax.swing.JButton();
         jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        ColunaSaida = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         ColunaEntrada = new javax.swing.JTextArea();
         jLabel17 = new javax.swing.JLabel();
         jButton2 = new javax.swing.JButton();
         comboConexão = new javax.swing.JComboBox();
         jLabel37 = new javax.swing.JLabel();
+        jLabel38 = new javax.swing.JLabel();
         jPanel6 = new javax.swing.JPanel();
         jTabbedPane4 = new javax.swing.JTabbedPane();
         jPanel9 = new javax.swing.JPanel();
@@ -198,13 +199,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel6.setText("Consulta SQL:");
 
-        jLabel8.setText("Colunas de Saída:");
-
         jLabel9.setText("Colunas de Entrada:");
-
-        ColunaSaida.setColumns(20);
-        ColunaSaida.setRows(5);
-        jScrollPane1.setViewportView(ColunaSaida);
 
         ColunaEntrada.setColumns(20);
         ColunaEntrada.setRows(5);
@@ -212,7 +207,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel17.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel17.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel17.setText("Coloque as Colunas separadas por , (Vírgula) e na ordem Desejada.");
+        jLabel17.setText("Coloque como apelido na consulta SQL o nome das colunas de entrada.");
 
         jButton2.setText("Sair");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
@@ -225,6 +220,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel37.setText("Conexão Configurada:");
 
+        jLabel38.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        jLabel38.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel38.setText("Separe as colunas por virgula e sem espaços.");
+
         javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
         jPanel30.setLayout(jPanel30Layout);
         jPanel30Layout.setHorizontalGroup(
@@ -232,40 +231,37 @@ public class TelaPrincipal extends javax.swing.JFrame {
             .addGroup(jPanel30Layout.createSequentialGroup()
                 .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel30Layout.createSequentialGroup()
-                        .addGap(6, 6, 6)
-                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel30Layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel30Layout.createSequentialGroup()
+                                .addGap(6, 6, 6)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 14, Short.MAX_VALUE))
                     .addGroup(jPanel30Layout.createSequentialGroup()
                         .addContainerGap()
-                        .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel30Layout.createSequentialGroup()
-                        .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel30Layout.createSequentialGroup()
-                                .addGap(0, 0, Short.MAX_VALUE)
+                                .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addComponent(comboConexão, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel30Layout.createSequentialGroup()
                                 .addComponent(ImportarGenerico, javax.swing.GroupLayout.PREFERRED_SIZE, 153, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 73, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addGroup(jPanel30Layout.createSequentialGroup()
-                                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(jLabel49)
-                                    .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel30Layout.createSequentialGroup()
+                                .addComponent(jLabel49)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(comboConexão, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(tabelaEntrada, javax.swing.GroupLayout.DEFAULT_SIZE, 349, Short.MAX_VALUE))))
-                        .addContainerGap())
-                    .addGroup(jPanel30Layout.createSequentialGroup()
-                        .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel8, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 244, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel30Layout.createSequentialGroup()
-                                .addComponent(jLabel9, javax.swing.GroupLayout.PREFERRED_SIZE, 171, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(jScrollPane3)))))
+                                .addComponent(tabelaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                    .addComponent(jLabel38, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap())
         );
         jPanel30Layout.setVerticalGroup(
             jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -275,33 +271,31 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel30Layout.createSequentialGroup()
-                        .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel49)
-                            .addComponent(tabelaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 8, Short.MAX_VALUE)
+                        .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(tabelaEntrada)
+                            .addComponent(jLabel49, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(comboConexão, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel37, javax.swing.GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
+                            .addComponent(jLabel37))
+                        .addGap(18, 18, 18)
+                        .addComponent(jLabel9)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                            .addComponent(jLabel9)
-                            .addComponent(jLabel8))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
-                            .addComponent(jScrollPane3))
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(jLabel17)
-                        .addGap(18, 18, 18)
-                        .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(ImportarGenerico, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
-                            .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addComponent(jLabel38)
+                        .addGap(0, 89, Short.MAX_VALUE))
                     .addComponent(jScrollPane2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(ImportarGenerico, javax.swing.GroupLayout.DEFAULT_SIZE, 38, Short.MAX_VALUE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(jLabel17, javax.swing.GroupLayout.Alignment.TRAILING))
                 .addContainerGap())
         );
 
         jPanel4.add(jPanel30);
-        jPanel30.setBounds(0, 0, 770, 430);
+        jPanel30.setBounds(0, 0, 920, 520);
 
         jTabbedPane2.addTab("Importação/Conversão", jPanel4);
 
@@ -365,7 +359,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         status.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         status.setBorder(javax.swing.BorderFactory.createTitledBorder(" Status "));
         jPanel9.add(status);
-        status.setBounds(490, 50, 120, 90);
+        status.setBounds(480, 30, 120, 90);
 
         jButton3.setText("<html><center>Inicializar Conexão");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -374,13 +368,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jPanel9.add(jButton3);
-        jButton3.setBounds(500, 70, 100, 50);
+        jButton3.setBounds(490, 50, 100, 50);
 
         jLabel10.setForeground(new java.awt.Color(0, 102, 102));
         jLabel10.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel10.setText("Recebe Dados");
         jPanel9.add(jLabel10);
-        jLabel10.setBounds(490, 140, 120, 20);
+        jLabel10.setBounds(480, 120, 120, 20);
 
         jTabbedPane4.addTab("E-Mysql", jPanel9);
 
@@ -515,7 +509,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jPanel10.add(jButton4);
-        jButton4.setBounds(460, 50, 100, 50);
+        jButton4.setBounds(490, 50, 100, 50);
 
         status1.setForeground(new java.awt.Color(0, 126, 255));
         status1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -523,13 +517,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         status1.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         status1.setBorder(javax.swing.BorderFactory.createTitledBorder(" Status "));
         jPanel10.add(status1);
-        status1.setBounds(450, 30, 120, 90);
+        status1.setBounds(480, 30, 120, 90);
 
         jLabel16.setForeground(new java.awt.Color(0, 102, 102));
         jLabel16.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel16.setText("Extrai Dados");
         jPanel10.add(jLabel16);
-        jLabel16.setBounds(450, 120, 120, 20);
+        jLabel16.setBounds(480, 120, 120, 20);
 
         jTabbedPane4.addTab("S-Mysql", jPanel10);
 
@@ -696,13 +690,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
         status3.setVerticalAlignment(javax.swing.SwingConstants.BOTTOM);
         status3.setBorder(javax.swing.BorderFactory.createTitledBorder(" Status "));
         jPanel7.add(status3);
-        status3.setBounds(450, 40, 120, 90);
+        status3.setBounds(460, 30, 120, 90);
 
         jLabel30.setForeground(new java.awt.Color(0, 102, 102));
         jLabel30.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel30.setText("Extrai Dados");
         jPanel7.add(jLabel30);
-        jLabel30.setBounds(450, 130, 120, 20);
+        jLabel30.setBounds(460, 120, 120, 20);
 
         jButton10.setText("<html><center>Inicializar Conexão");
         jButton10.addActionListener(new java.awt.event.ActionListener() {
@@ -711,7 +705,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
         jPanel7.add(jButton10);
-        jButton10.setBounds(460, 60, 100, 50);
+        jButton10.setBounds(470, 50, 100, 50);
 
         jTabbedPane4.addTab("S-SqlServer", jPanel7);
 
@@ -836,23 +830,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jTabbedPane4.addTab("S-Paradox", jPanel22);
 
         jPanel6.add(jTabbedPane4);
-        jTabbedPane4.setBounds(0, 0, 770, 440);
+        jTabbedPane4.setBounds(0, 0, 920, 530);
 
-        jTabbedPane2.addTab("Conexões", jPanel6);
+        jTabbedPane2.addTab("Conexões (S= saída | E= entrada)", jPanel6);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 781, Short.MAX_VALUE)
+            .addGap(0, 926, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 781, Short.MAX_VALUE))
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.DEFAULT_SIZE, 926, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 470, Short.MAX_VALUE)
+            .addGap(0, 554, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 470, Short.MAX_VALUE))
+                .addComponent(jTabbedPane2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 554, Short.MAX_VALUE))
         );
 
         pack();
@@ -929,7 +923,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         if (comboConexão.getSelectedItem() == "SDBF --> POSTGRESQL") {
-           SDBFparaPostgreSQL();
+            SDBFparaPostgreSQL();
         } else {
             JOptionPane.showMessageDialog(this, "Você deve selecionar a conexão configurada por você na aba conexões! ");
         }
@@ -963,7 +957,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextArea ColunaEntrada;
-    private javax.swing.JTextArea ColunaSaida;
     private javax.swing.JButton ImportarGenerico;
     private javax.swing.JTextArea SQLGenerico;
     private javax.swing.JTextField bd;
@@ -1024,6 +1017,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
+    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;
@@ -1037,7 +1031,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
-    private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel10;
     private javax.swing.JPanel jPanel11;
@@ -1050,7 +1043,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JPanel jPanel7;
     private javax.swing.JPanel jPanel9;
-    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane2;
@@ -1299,10 +1291,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
      * *
      * Funções de Importação de dados
      */
-    
-    private void SDBFparaPostgreSQL() {       
-    
-         if ( campoDirAdpm.getText().trim().length() == 0) {
+    private void SDBFparaPostgreSQL() {
+
+        if (campoDirAdpm.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(this, "Escolha o Diretório do banco de dados DBF antes de Processar.");
         } else {
             try {
@@ -1317,39 +1308,69 @@ public class TelaPrincipal extends javax.swing.JFrame {
                         clBuscaResultSet.setExecute("DELETE FROM " + tabelaEntrada.getText());
                         rs.beforeFirst();
                         ResultSet sr = clBuscaResultSet.getPesquisa("SELECT * FROM " + tabelaEntrada.getText());
-                       
+
                         String colunasSaida[];
                         String colunasEntrada[];
-                        
-                        colunasSaida = ColunaSaida.getText().split(",");
+
                         colunasEntrada = ColunaEntrada.getText().split(",");
-                                                
+
                         while (rs.next()) {
                             sr.moveToInsertRow();
-                                                     
-                            for(int i = 0; i<colunasSaida.length; i++) {
-                                sr.updateString(colunasSaida[i], rs.getString(colunasEntrada[i]));
+
+                            for (String colunasEntrada1 : colunasEntrada) {
+                                sr.updateString(colunasEntrada1, "" + rs.getString(colunasEntrada1));
+                                //escolheTipoVariavel(colunasEntrada[i], colunasSaida[i], sr, rs);
                             }
 
-                            sr.insertRow();                           
+                            sr.insertRow();
                         }
                         rs.close();
                         JOptionPane.showMessageDialog(this, "Importação de dados concluída com sucesso!");
                     } else {
                         JOptionPane.showMessageDialog(this, "Cadastro de Servidores\nNão foi encontrado registro para importação.");
                     }
-                } catch (Exception e) {
+                } catch (SQLException | HeadlessException e) {
                     JOptionPane.showMessageDialog(this, "Erro 1:\n" + e);
-                    e.printStackTrace();
                 }
 
-            } catch (Exception e) {
+            } catch (ClassNotFoundException | SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(this, "Erro:\n" + e);
             }
         }
-        
+
+    }
+
+    /**
+     * *
+     * Função para escolher qual o tipo de entrada do banco de dados.
+     *
+     * @param entrada
+     * @param saida
+     * @param sr
+     * @param rs
+     */
+    private void escolheTipoVariavel(String entrada, String saida, ResultSet sr, ResultSet rs) {
+
+        String entradas[] = entrada.split(" ");
+        String saidas[] = saida.split(" ");
+
+        System.out.println("" + entradas[0] + "|" + entradas[1] + "|" + saidas[0] + "|" + saidas[1]);
+
+        try {
+            if (saidas[0].equalsIgnoreCase("int")) {
+                sr.updateInt(entradas[1].toString(), rs.getInt(saidas[1]));
+            } else if (saidas[0].equalsIgnoreCase("char")) {
+                sr.updateString(entradas[1], rs.getString(saidas[1]));
+            } else if (saidas[0].equalsIgnoreCase("date")) {
+                sr.updateDate(entradas[1], rs.getDate(saidas[1]));
+            } else {
+                JOptionPane.showMessageDialog(this, "Escolha um tipo compatível:");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Erro 1:\n" + e);
+            e.printStackTrace();
+        }
+
     }
 
 }
-       
-
