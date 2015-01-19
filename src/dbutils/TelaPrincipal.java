@@ -1102,15 +1102,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
         conexoes.Conectar.setSenhaBanco(senha5.getText());
         conexoes.Conectar.setUsurioBanco(user5.getText());
         conexoes.Conectar.setUrlConexao("jdbc:postgresql://" + conexoes.Conectar.getIpServidor() + ":" + conexoes.Conectar.getPorta() + "/" + conexoes.Conectar.getNomeDB());
-        //if(conexoes.Conectar.isInicializado() > 0){
         stmtPgEntrada = conexoes.Conectar.getStatement();
         stmtPgEntrada2 = conexoes.Conectar.getStatement();
-        //stmtSqlEntrada3 = conexoes.Conectar.getStatement();
-        //stmtSqlEntrada4 = conexoes.Conectar.getStatement();
         if (conexoes.clBuscaResultSet.getCount("SELECT DATNAME FROM PG_DATABASE where datname like '" + bd5.getText() + "' ORDER BY LOWER(DATNAME)  ") > 0) {
             status5.setForeground(new Color(0, 153, 51));
             status5.setText("Conectado");
-
         } else {
             status5.setForeground(new Color(204, 0, 0));
             status5.setText("Desconectado");
@@ -1138,14 +1134,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
             if (quantBancos > 0) {
                 status2.setForeground(new Color(0, 153, 51));
                 status2.setText("Conectado");
-                //processar.setEnabled(true);
             } else {
                 status2.setForeground(new Color(204, 0, 0));
                 status2.setText("Desconectado");
-                //processar.setEnabled(false);
             }
             while (rs.next()) {
-                ;//cDir.addItem((Object)rs.getString("DATNAME"));
+
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1160,7 +1154,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         conexoes.Conectar.setSenhaBanco(senha.getText());
         conexoes.Conectar.setUsurioBanco(user.getText());
         conexoes.Conectar.setUrlConexao("jdbc:mysql://" + conexoes.Conectar.getIpServidor() + ":" + conexoes.Conectar.getPorta() + "/" + conexoes.Conectar.getNomeDB());
-        //if(conexoes.Conectar.isInicializado() > 0){
         stmtSqlEntrada = conexoes.Conectar.getStatement();
         stmtSqlEntrada2 = conexoes.Conectar.getStatement();
         stmtSqlEntrada3 = conexoes.Conectar.getStatement();
@@ -1191,11 +1184,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             if (quantBancos > 0) {
                 status3.setForeground(new Color(0, 153, 51));
                 status3.setText("Conectado");
-                //processar.setEnabled(true);
             } else {
                 status3.setForeground(new Color(204, 0, 0));
                 status3.setText("Desconectado");
-                //processar.setEnabled(false);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1207,7 +1198,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void getConexaoInterBase() {//Saida
         try {
             Class.forName("interbase.interclient.Driver");
-            //jdbc:interbase://localhost/C:\Documents and Settings\adm\Desktop\RHEXERCICIOCampo\RHEXERCICIO.GDB
             Connection conn = java.sql.DriverManager.getConnection("jdbc:interbase://" + host4.getText() + ":" + porta4.getText() + "/" + bd4.getText(), user4.getText(), senha4.getText());
             stmtInterBaseSaida = conn.createStatement(java.sql.ResultSet.TYPE_SCROLL_SENSITIVE, java.sql.ResultSet.CONCUR_UPDATABLE);
 
@@ -1221,11 +1211,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             if (quantBancos > 0) {
                 status4.setForeground(new Color(0, 153, 51));
                 status4.setText("Conectado");
-                //processar.setEnabled(true);
             } else {
                 status4.setForeground(new Color(204, 0, 0));
                 status4.setText("Desconectado");
-                //processar.setEnabled(false);
             }
         } catch (Exception e) {
             e.printStackTrace();
@@ -1250,11 +1238,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
             if (quantBancos > 0) {
                 status1.setForeground(new Color(0, 153, 51));
                 status1.setText("Conectado");
-                //processar.setEnabled(true);
             } else {
                 status1.setForeground(new Color(204, 0, 0));
                 status1.setText("Desconectado");
-                //processar.setEnabled(false);
             }
         } catch (Exception e) {
             e.printStackTrace();
