@@ -33,17 +33,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
-
-        /*
-         try {
-         Properties props = new Properties();
-         props.put("logoString", "PragmaSUM");
-         AluminiumLookAndFeel.setCurrentTheme(props);
-         UIManager.setLookAndFeel("com.jtattoo.plaf.aluminium.AluminiumLookAndFeel");
-         SwingUtilities.updateComponentTreeUI(this);
-         } catch (Exception e) {
-         // TODO: handle exception
-         }*/
+        
     }
 
     /**
@@ -201,7 +191,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel9.setText("Colunas de Entrada:");
 
+        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+
         ColunaEntrada.setColumns(20);
+        ColunaEntrada.setLineWrap(true);
         ColunaEntrada.setRows(5);
         jScrollPane3.setViewportView(ColunaEntrada);
 
@@ -216,7 +209,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        comboConexão.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a conexão configurada", "SDBF --> POSTGRESQL", "MSSQLSERVER --> POSTGRESQL", "MySQL --> POSTGRESQL", "MSSQLSERVER --> MySQL" }));
+        comboConexão.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a conexão configurada", "SDBF --> POSTGRESQL", "MSSQLSERVER --> MySQL", "MSSQLSERVER --> POSTGRESQL", "MySQL --> POSTGRESQL", " " }));
 
         jLabel37.setText("Conexão Configurada:");
 
@@ -851,7 +844,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
-        getConexaoParadoxPadrao();
+        Conexoes.getConexaoParadoxPadrao(campoDirParadox, stmtParadoxSaida, stmtParadoxSaida2);
     }//GEN-LAST:event_jButton23ActionPerformed
 
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
@@ -873,19 +866,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        getConexaoInterBase();
+        Conexoes.getConexaoInterBase(host4, porta4, bd4, user4, senha4, stmtInterBaseSaida, status4);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        getConexaoMSSQLSERVER();
+        Conexoes.getConexaoMSSQLSERVER(host3, porta3, bd3, user3, senha3, status3, stmtMsSqlServerSaida, stmtMsSqlServerSaida2);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        getConexaoPG();
+        Conexoes.getConexaoPG(host2, porta2, bd2, user2, senha2, stmtPgSqlSaida, status2);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        getConexaoDBFPadrao();
+        Conexoes.getConexaoDBFPadrao(campoDirAdpm, stmtDBFSaida);
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -898,11 +891,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        getConexaoSQL();
+        Conexoes.getConexaoSQL(porta1, host1, bd1, stmtMySqlSaida, status1);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
-        getConexaoPostgresEntrada();
+        Conexoes.getConexaoPostgresEntrada(status5, host5, bd5, porta5, senha5, user5, stmtPgEntrada, stmtPgEntrada2);        
     }//GEN-LAST:event_jButton24ActionPerformed
 
     private void senha5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senha5ActionPerformed
@@ -910,7 +903,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_senha5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        getConexaoMySqlEntrada();
+        Conexoes.getConexaoMySqlEntrada(host, bd, porta, senha, user, stmtSqlEntrada, stmtSqlEntrada2, stmtSqlEntrada3, stmtSqlEntrada4, status);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void tabelaEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabelaEntradaActionPerformed
@@ -1090,195 +1083,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private int codEndPess = 0;
     private String sin = ">";
 
-    /**
-     * *
-     * Funções de Conexão
-     */
-    private void getConexaoPostgresEntrada() {
-        conexoes.Conectar.setDriveJDBC("org.postgresql.Driver");
-        conexoes.Conectar.setIpServidor(host5.getText());
-        conexoes.Conectar.setNomeDB(bd5.getText());
-        conexoes.Conectar.setPorta(porta5.getText());
-        conexoes.Conectar.setSenhaBanco(senha5.getText());
-        conexoes.Conectar.setUsurioBanco(user5.getText());
-        conexoes.Conectar.setUrlConexao("jdbc:postgresql://" + conexoes.Conectar.getIpServidor() + ":" + conexoes.Conectar.getPorta() + "/" + conexoes.Conectar.getNomeDB());
-        stmtPgEntrada = conexoes.Conectar.getStatement();
-        stmtPgEntrada2 = conexoes.Conectar.getStatement();
-        if (conexoes.clBuscaResultSet.getCount("SELECT DATNAME FROM PG_DATABASE where datname like '" + bd5.getText() + "' ORDER BY LOWER(DATNAME)  ") > 0) {
-            status5.setForeground(new Color(0, 153, 51));
-            status5.setText("Conectado");
-        } else {
-            status5.setForeground(new Color(204, 0, 0));
-            status5.setText("Desconectado");
-
-        }
-    }
-
-    private void getConexaoPG() {
-        try {
-            Class.forName("org.postgresql.Driver");
-            Connection conn = DriverManager.getConnection("jdbc:postgresql://" + host2.getText().trim() + ":" + porta2.getText() + "/" + bd2.getText(), user2.getText(), senha2.getText());
-            stmtPgSqlSaida = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            ResultSet rs0 = stmtPgSqlSaida.executeQuery("SELECT DATNAME FROM PG_DATABASE");
-            if (rs0.next()) {
-                System.out.println(rs0.getString(1));
-            }
-            int quantBancos = 0;
-            ResultSet rs = stmtPgSqlSaida.executeQuery("select relname from pg_stat_user_tables order by relname ");
-            if (rs.next()) {
-                System.out.println(rs.getString(1));
-                quantBancos = 1;
-            } else {
-                quantBancos = 0;
-            }
-            if (quantBancos > 0) {
-                status2.setForeground(new Color(0, 153, 51));
-                status2.setText("Conectado");
-            } else {
-                status2.setForeground(new Color(204, 0, 0));
-                status2.setText("Desconectado");
-            }
-            while (rs.next()) {
-
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void getConexaoMySqlEntrada() {
-        conexoes.Conectar.setDriveJDBC("com.mysql.jdbc.Driver");
-        conexoes.Conectar.setIpServidor(host.getText());
-        conexoes.Conectar.setNomeDB(bd.getText());
-        conexoes.Conectar.setPorta(porta.getText());
-        conexoes.Conectar.setSenhaBanco(senha.getText());
-        conexoes.Conectar.setUsurioBanco(user.getText());
-        conexoes.Conectar.setUrlConexao("jdbc:mysql://" + conexoes.Conectar.getIpServidor() + ":" + conexoes.Conectar.getPorta() + "/" + conexoes.Conectar.getNomeDB());
-        stmtSqlEntrada = conexoes.Conectar.getStatement();
-        stmtSqlEntrada2 = conexoes.Conectar.getStatement();
-        stmtSqlEntrada3 = conexoes.Conectar.getStatement();
-        stmtSqlEntrada4 = conexoes.Conectar.getStatement();
-        if (conexoes.clBuscaResultSet.getCount("SHOW TABLES FROM " + bd.getText()) > 0) {
-            status.setForeground(new Color(0, 153, 51));
-            status.setText("Conectado");
-        } else {
-            status.setForeground(new Color(204, 0, 0));
-            status.setText("Desconectado");
-        }
-    }
-
-    private void getConexaoMSSQLSERVER() {//Saida
-        try {
-            Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
-            Connection conn = java.sql.DriverManager.getConnection("jdbc:sqlserver://" + host3.getText() + ":" + porta3.getText() + ";databasename=" + bd3.getText(), user3.getText(), senha3.getText());
-            stmtMsSqlServerSaida = conn.createStatement(java.sql.ResultSet.TYPE_SCROLL_SENSITIVE, java.sql.ResultSet.CONCUR_UPDATABLE);
-            stmtMsSqlServerSaida2 = conn.createStatement(java.sql.ResultSet.TYPE_SCROLL_SENSITIVE, java.sql.ResultSet.CONCUR_UPDATABLE);
-
-            int quantBancos = 0;
-            ResultSet rs = stmtMsSqlServerSaida.executeQuery("SELECT     '' AS Expr1");
-            if (rs.next()) {
-                quantBancos = 1;
-            } else {
-                quantBancos = 0;
-            }
-            if (quantBancos > 0) {
-                status3.setForeground(new Color(0, 153, 51));
-                status3.setText("Conectado");
-            } else {
-                status3.setForeground(new Color(204, 0, 0));
-                status3.setText("Desconectado");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            status3.setForeground(new Color(204, 0, 0));
-            status3.setText("Desconectado");
-        }
-    }
-
-    private void getConexaoInterBase() {//Saida
-        try {
-            Class.forName("interbase.interclient.Driver");
-            Connection conn = java.sql.DriverManager.getConnection("jdbc:interbase://" + host4.getText() + ":" + porta4.getText() + "/" + bd4.getText(), user4.getText(), senha4.getText());
-            stmtInterBaseSaida = conn.createStatement(java.sql.ResultSet.TYPE_SCROLL_SENSITIVE, java.sql.ResultSet.CONCUR_UPDATABLE);
-
-            int quantBancos = 0;
-            ResultSet rs = stmtInterBaseSaida.executeQuery("show databases");
-            if (rs.next()) {
-                quantBancos = 1;
-            } else {
-                quantBancos = 0;
-            }
-            if (quantBancos > 0) {
-                status4.setForeground(new Color(0, 153, 51));
-                status4.setText("Conectado");
-            } else {
-                status4.setForeground(new Color(204, 0, 0));
-                status4.setText("Desconectado");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            status4.setForeground(new Color(204, 0, 0));
-            status4.setText("Desconectado");
-        }
-    }
-
-    private void getConexaoSQL() {//Saida
-        try {
-            Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = java.sql.DriverManager.getConnection("jdbc:mysql://" + host1.getText() + ":" + porta1.getText() + "/" + bd1.getText(), "root", "427623");
-            stmtMySqlSaida = conn.createStatement(java.sql.ResultSet.TYPE_SCROLL_SENSITIVE, java.sql.ResultSet.CONCUR_UPDATABLE);
-
-            int quantBancos = 0;
-            ResultSet rs = stmtMySqlSaida.executeQuery("SHOW TABLES FROM " + bd1.getText());
-            if (rs.next()) {
-                quantBancos = 1;
-            } else {
-                quantBancos = 0;
-            }
-            if (quantBancos > 0) {
-                status1.setForeground(new Color(0, 153, 51));
-                status1.setText("Conectado");
-            } else {
-                status1.setForeground(new Color(204, 0, 0));
-                status1.setText("Desconectado");
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void getConexaoParadoxPadrao() {
-        try {
-            String dirDBF = campoDirParadox.getText();
-            Class.forName("com.hxtt.sql.paradox.ParadoxDriver");
-            String sss = "jdbc:paradox:/" + dirDBF;
-            System.out.println("url: " + sss);
-            Connection conn = DriverManager.getConnection(sss);
-            Connection conn2 = DriverManager.getConnection(sss);
-            stmtParadoxSaida = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-            stmtParadoxSaida2 = conn2.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private void getConexaoDBFPadrao() {
-        try {
-            String dirDBF = campoDirAdpm.getText();
-            Class.forName("com.hxtt.sql.dbf.DBFDriver");
-            Connection conn = DriverManager.getConnection("jdbc:dbf:/" + dirDBF);
-            stmtDBFSaida = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
+   
     /**
      * *
      * Funções de Importação de dados
      */
     private void SDBFparaPostgreSQL() {
-
+        
         if (campoDirAdpm.getText().trim().length() == 0) {
             JOptionPane.showMessageDialog(this, "Escolha o Diretório do banco de dados DBF antes de Processar.");
         } else {
@@ -1287,27 +1098,27 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 Class.forName("com.hxtt.sql.dbf.DBFDriver");
                 Connection conn = DriverManager.getConnection("jdbc:dbf:/" + dirDBF);
                 stmtDBFSaida = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-
+                
                 try {
                     ResultSet rs = stmtDBFSaida.executeQuery(SQLGenerico.getText());
                     if (rs.next()) {
                         clBuscaResultSet.setExecute("DELETE FROM " + tabelaEntrada.getText());
                         rs.beforeFirst();
                         ResultSet sr = clBuscaResultSet.getPesquisa("SELECT * FROM " + tabelaEntrada.getText());
-
+                        
                         String colunasSaida[];
                         String colunasEntrada[];
-
+                        
                         colunasEntrada = ColunaEntrada.getText().split(",");
-
+                        
                         while (rs.next()) {
                             sr.moveToInsertRow();
-
+                            
                             for (String colunasEntrada1 : colunasEntrada) {
                                 sr.updateString(colunasEntrada1, "" + rs.getString(colunasEntrada1));
                                 //escolheTipoVariavel(colunasEntrada[i], colunasSaida[i], sr, rs);
                             }
-
+                            
                             sr.insertRow();
                         }
                         rs.close();
@@ -1318,37 +1129,37 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 } catch (SQLException | HeadlessException e) {
                     JOptionPane.showMessageDialog(this, "Erro 1:\n" + e);
                 }
-
+                
             } catch (ClassNotFoundException | SQLException | HeadlessException e) {
                 JOptionPane.showMessageDialog(this, "Erro:\n" + e);
             }
         }
-
+        
     }
-
+    
     private void MSSQLServerparaMySQL() {
-
+        
         try {
             ResultSet rs = stmtMsSqlServerSaida.executeQuery(SQLGenerico.getText());
             if (rs.next()) {
                 clBuscaResultSet.setExecute("DELETE FROM " + tabelaEntrada.getText());
                 rs.beforeFirst();
                 ResultSet sr = clBuscaResultSet.getPesquisa("SELECT * FROM " + tabelaEntrada.getText());
-           
+                
                 String colunasEntrada[];
-
+                
                 colunasEntrada = ColunaEntrada.getText().split(",");
                 
                 while (rs.next()) {
-
+                    
                     sr.moveToInsertRow();
-
+                    
                     for (String colunasEntrada1 : colunasEntrada) {
                         sr.updateString(colunasEntrada1, "" + rs.getString(colunasEntrada1));                        
                     }
-
+                    
                     sr.insertRow();
-
+                    
                 }
                 rs.close();
                 JOptionPane.showMessageDialog(this, "Tudo beleza!");
@@ -1361,23 +1172,23 @@ public class TelaPrincipal extends javax.swing.JFrame {
         }
     }
 
-
-/**
- * *
- * Função para escolher qual o tipo de entrada do banco de dados.
- *
- * @param entrada
- * @param saida
- * @param sr
- * @param rs
- */
-private void escolheTipoVariavel(String entrada, String saida, ResultSet sr, ResultSet rs) {
-
+    /**
+     * *
+     * Função para escolher qual o tipo de entrada do banco de dados.
+     *
+     * @deprecated 
+     * @param entrada
+     * @param saida
+     * @param sr
+     * @param rs
+     */
+    private void escolheTipoVariavel(String entrada, String saida, ResultSet sr, ResultSet rs) {
+        
         String entradas[] = entrada.split(" ");
         String saidas[] = saida.split(" ");
-
+        
         System.out.println("" + entradas[0] + "|" + entradas[1] + "|" + saidas[0] + "|" + saidas[1]);
-
+        
         try {
             if (saidas[0].equalsIgnoreCase("int")) {
                 sr.updateInt(entradas[1].toString(), rs.getInt(saidas[1]));
@@ -1392,7 +1203,7 @@ private void escolheTipoVariavel(String entrada, String saida, ResultSet sr, Res
             JOptionPane.showMessageDialog(this, "Erro 1:\n" + e);
             e.printStackTrace();
         }
-
+        
     }
-
+    
 }
