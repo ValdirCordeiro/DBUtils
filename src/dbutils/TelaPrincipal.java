@@ -216,7 +216,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        comboConexão.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a conexão configurada", "SDBF --> POSTGRESQL", "MSSQLSERVER --> POSTGRESQL", "MySQL --> POSTGRESQL" }));
+        comboConexão.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a conexão configurada", "SDBF --> POSTGRESQL", "MSSQLSERVER --> POSTGRESQL", "MySQL --> POSTGRESQL", "MSSQLSERVER --> MySQL" }));
 
         jLabel37.setText("Conexão Configurada:");
 
@@ -328,7 +328,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel9.add(jLabel3);
         jLabel3.setBounds(10, 130, 70, 20);
 
-        bd.setText("tSaoSebastiaoMaranhao09");
+        bd.setText("CamaraCachoeira");
         bd.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bdActionPerformed(evt);
@@ -336,8 +336,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
         });
         jPanel9.add(bd);
         bd.setBounds(90, 130, 240, 20);
-
-        senha.setText("427623");
         jPanel9.add(senha);
         senha.setBounds(90, 100, 70, 20);
 
@@ -349,7 +347,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel9.add(porta);
         porta.setBounds(90, 40, 50, 20);
 
-        host.setText("localhost");
+        host.setText("ULTRACCE");
         jPanel9.add(host);
         host.setBounds(90, 10, 96, 20);
 
@@ -832,7 +830,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel6.add(jTabbedPane4);
         jTabbedPane4.setBounds(0, 0, 920, 530);
 
-        jTabbedPane2.addTab("Conexões (S= saída | E= entrada)", jPanel6);
+        jTabbedPane2.addTab("Conexões ( S: saída |  E: entrada)", jPanel6);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -924,6 +922,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         if (comboConexão.getSelectedItem() == "SDBF --> POSTGRESQL") {
             SDBFparaPostgreSQL();
+        } else if (comboConexão.getSelectedItem() == "MSSQLSERVER --> MySQL") {
+            MSSQLServerparaMySQL();
         } else {
             JOptionPane.showMessageDialog(this, "Você deve selecionar a conexão configurada por você na aba conexões! ");
         }
@@ -1326,16 +1326,52 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     }
 
-    /**
-     * *
-     * Função para escolher qual o tipo de entrada do banco de dados.
-     *
-     * @param entrada
-     * @param saida
-     * @param sr
-     * @param rs
-     */
-    private void escolheTipoVariavel(String entrada, String saida, ResultSet sr, ResultSet rs) {
+    private void MSSQLServerparaMySQL() {
+
+        try {
+            ResultSet rs = stmtMsSqlServerSaida.executeQuery(SQLGenerico.getText());
+            if (rs.next()) {
+                clBuscaResultSet.setExecute("DELETE FROM " + tabelaEntrada.getText());
+                rs.beforeFirst();
+                ResultSet sr = clBuscaResultSet.getPesquisa("SELECT * FROM " + tabelaEntrada.getText());
+           
+                String colunasEntrada[];
+
+                colunasEntrada = ColunaEntrada.getText().split(",");
+                
+                while (rs.next()) {
+
+                    sr.moveToInsertRow();
+
+                    for (String colunasEntrada1 : colunasEntrada) {
+                        sr.updateString(colunasEntrada1, "" + rs.getString(colunasEntrada1));                        
+                    }
+
+                    sr.insertRow();
+
+                }
+                rs.close();
+                JOptionPane.showMessageDialog(this, "Tudo beleza!");
+            } else {
+                JOptionPane.showMessageDialog(this, "Cadastro de Servidores\nNão foi encontrado registro para importação.");
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(this, "Cadastro de Servidores\n" + e);
+            e.printStackTrace();
+        }
+    }
+
+
+/**
+ * *
+ * Função para escolher qual o tipo de entrada do banco de dados.
+ *
+ * @param entrada
+ * @param saida
+ * @param sr
+ * @param rs
+ */
+private void escolheTipoVariavel(String entrada, String saida, ResultSet sr, ResultSet rs) {
 
         String entradas[] = entrada.split(" ");
         String saidas[] = saida.split(" ");

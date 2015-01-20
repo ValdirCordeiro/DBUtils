@@ -231,11 +231,12 @@
                 <Component class="javax.swing.JComboBox" name="comboConex&#xe3;o">
                   <Properties>
                     <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                      <StringArray count="4">
+                      <StringArray count="5">
                         <StringItem index="0" value="Selecione a conex&#xe3;o configurada"/>
                         <StringItem index="1" value="SDBF --&gt; POSTGRESQL"/>
                         <StringItem index="2" value="MSSQLSERVER --&gt; POSTGRESQL"/>
                         <StringItem index="3" value="MySQL --&gt; POSTGRESQL"/>
+                        <StringItem index="4" value="MSSQLSERVER --&gt; MySQL"/>
                       </StringArray>
                     </Property>
                   </Properties>
@@ -263,8 +264,8 @@
         <Container class="javax.swing.JPanel" name="jPanel6">
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout" value="org.netbeans.modules.form.compat2.layouts.support.JTabbedPaneSupportLayout$JTabbedPaneConstraintsDescription">
-              <JTabbedPaneConstraints tabName="Conex&#xf5;es (S= sa&#xed;da | E= entrada)">
-                <Property name="tabTitle" type="java.lang.String" value="Conex&#xf5;es (S= sa&#xed;da | E= entrada)"/>
+              <JTabbedPaneConstraints tabName="Conex&#xf5;es ( S: sa&#xed;da |  E: entrada)">
+                <Property name="tabTitle" type="java.lang.String" value="Conex&#xf5;es ( S: sa&#xed;da |  E: entrada)"/>
               </JTabbedPaneConstraints>
             </Constraint>
           </Constraints>
@@ -352,7 +353,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="bd">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="tSaoSebastiaoMaranhao09"/>
+                        <Property name="text" type="java.lang.String" value="CamaraCachoeira"/>
                       </Properties>
                       <Events>
                         <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="bdActionPerformed"/>
@@ -364,9 +365,6 @@
                       </Constraints>
                     </Component>
                     <Component class="javax.swing.JTextField" name="senha">
-                      <Properties>
-                        <Property name="text" type="java.lang.String" value="427623"/>
-                      </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
                           <AbsoluteConstraints x="90" y="100" width="70" height="-1"/>
@@ -395,7 +393,7 @@
                     </Component>
                     <Component class="javax.swing.JTextField" name="host">
                       <Properties>
-                        <Property name="text" type="java.lang.String" value="localhost"/>
+                        <Property name="text" type="java.lang.String" value="ULTRACCE"/>
                       </Properties>
                       <Constraints>
                         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
