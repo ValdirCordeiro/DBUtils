@@ -33,7 +33,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
-        
+
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -209,13 +210,13 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        comboConexão.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a conexão configurada", "SDBF --> POSTGRESQL", "MSSQLSERVER --> MySQL", "MSSQLSERVER --> POSTGRESQL", "MySQL --> POSTGRESQL", " " }));
+        comboConexão.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a conexão configurada", "SDBF --> POSTGRESQL", "MSSQLSERVER --> MySQL", "POSTGRESQL --> MySQL", "MSSQLSERVER --> POSTGRESQL", "MySQL --> POSTGRESQL" }));
 
         jLabel37.setText("Conexão Configurada:");
 
         jLabel38.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel38.setText("Separe as colunas por virgula.");
+        jLabel38.setText("Separe as colunas por virgula e sem espaços.");
 
         javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
         jPanel30.setLayout(jPanel30Layout);
@@ -844,7 +845,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jButton23ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton23ActionPerformed
-        Conexoes.getConexaoParadoxPadrao(campoDirParadox, stmtParadoxSaida, stmtParadoxSaida2);
+        stmtParadoxSaida = Conexoes.getConexaoParadoxPadrao(campoDirParadox, stmtParadoxSaida);
     }//GEN-LAST:event_jButton23ActionPerformed
 
     private void jButton22ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton22ActionPerformed
@@ -866,19 +867,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton13ActionPerformed
 
     private void jButton12ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton12ActionPerformed
-        Conexoes.getConexaoInterBase(host4, porta4, bd4, user4, senha4, stmtInterBaseSaida, status4);
+        stmtInterBaseSaida = Conexoes.getConexaoInterBase(host4, porta4, bd4, user4, senha4, stmtInterBaseSaida, status4);
     }//GEN-LAST:event_jButton12ActionPerformed
 
     private void jButton10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton10ActionPerformed
-        Conexoes.getConexaoMSSQLSERVER(host3, porta3, bd3, user3, senha3, status3, stmtMsSqlServerSaida, stmtMsSqlServerSaida2);
+        stmtMsSqlServerSaida = Conexoes.getConexaoMSSQLSERVER(host3, porta3, bd3, user3, senha3, status3, stmtMsSqlServerSaida);
     }//GEN-LAST:event_jButton10ActionPerformed
 
     private void jButton8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton8ActionPerformed
-        Conexoes.getConexaoPG(host2, porta2, bd2, user2, senha2, stmtPgSqlSaida, status2);
+        stmtPgSqlSaida = Conexoes.getConexaoPG(host2, porta2, bd2, user2, senha2, stmtPgSqlSaida, status2);
     }//GEN-LAST:event_jButton8ActionPerformed
 
     private void jButton16ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton16ActionPerformed
-        Conexoes.getConexaoDBFPadrao(campoDirAdpm, stmtDBFSaida);
+        stmtDBFSaida = Conexoes.getConexaoDBFPadrao(campoDirAdpm, stmtDBFSaida);
     }//GEN-LAST:event_jButton16ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
@@ -891,11 +892,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        Conexoes.getConexaoSQL(porta1, host1, bd1, stmtMySqlSaida, status1);
+        stmtMySqlSaida = Conexoes.getConexaoSQL(porta1, host1, bd1, stmtMySqlSaida, status1);
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton24ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton24ActionPerformed
-        Conexoes.getConexaoPostgresEntrada(status5, host5, bd5, porta5, senha5, user5, stmtPgEntrada, stmtPgEntrada2);        
+        stmtPgEntrada = Conexoes.getConexaoPostgresEntrada(status5, host5, bd5, porta5, senha5, user5, stmtPgEntrada);
     }//GEN-LAST:event_jButton24ActionPerformed
 
     private void senha5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_senha5ActionPerformed
@@ -903,7 +904,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_senha5ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        Conexoes.getConexaoMySqlEntrada(host, bd, porta, senha, user, stmtSqlEntrada, stmtSqlEntrada2, stmtSqlEntrada3, stmtSqlEntrada4, status);
+        stmtSqlEntrada = Conexoes.getConexaoMySqlEntrada(host, bd, porta, senha, user, stmtSqlEntrada, status);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void tabelaEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabelaEntradaActionPerformed
@@ -914,15 +915,16 @@ public class TelaPrincipal extends javax.swing.JFrame {
         // TODO add your handling code here:
 
         if (comboConexão.getSelectedItem() == "SDBF --> POSTGRESQL") {
-            SDBFparaPostgreSQL();
+            Conexoes.Importacoes.SDBFparaPostgreSQL(campoDirAdpm, tabelaEntrada, ColunaEntrada, SQLGenerico, stmtDBFSaida);
         } else if (comboConexão.getSelectedItem() == "MSSQLSERVER --> MySQL") {
-            MSSQLServerparaMySQL();
-        } else {
+            Conexoes.Importacoes.ImportacaoDeMSSQLServer(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtMsSqlServerSaida);
+        } else if (comboConexão.getSelectedItem() == "POSTGRESQL --> MySQL" ) {
+            Conexoes.Importacoes.PostgreSQLparaMySQL(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtPgSqlSaida);
+        } else if (comboConexão.getSelectedItem() == "MSSQLSERVER --> POSTGRESQL"){
+            Conexoes.Importacoes.ImportacaoDeMSSQLServer(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtMsSqlServerSaida);
+        }else {
             JOptionPane.showMessageDialog(this, "Você deve selecionar a conexão configurada por você na aba conexões! ");
         }
-
-        //MSSQLSERVER-- > POSTGRESQL
-        //MySQL-- > POSTGRESQL
 
     }//GEN-LAST:event_ImportarGenericoActionPerformed
 
@@ -1068,142 +1070,10 @@ public class TelaPrincipal extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
     private Statement stmtDBFSaida = null;
     private Statement stmtParadoxSaida = null;
-    private Statement stmtParadoxSaida2 = null;
     private Statement stmtMySqlSaida = null;
     private Statement stmtPgSqlSaida = null;
-    private Statement stmtPgEntrada = null;
-    private Statement stmtPgEntrada2 = null;
-    private Statement stmtSqlEntrada = null;
-    private Statement stmtSqlEntrada2 = null;
-    private Statement stmtSqlEntrada3 = null;
-    private Statement stmtSqlEntrada4 = null;
-    private Statement stmtMsSqlServerSaida = null;
-    private Statement stmtMsSqlServerSaida2 = null;
-    private Statement stmtInterBaseSaida = null;
-    private int codEndPess = 0;
-    private String sin = ">";
-
-   
-    /**
-     * *
-     * Funções de Importação de dados
-     */
-    private void SDBFparaPostgreSQL() {
-        
-        if (campoDirAdpm.getText().trim().length() == 0) {
-            JOptionPane.showMessageDialog(this, "Escolha o Diretório do banco de dados DBF antes de Processar.");
-        } else {
-            try {
-                String dirDBF = campoDirAdpm.getText();
-                Class.forName("com.hxtt.sql.dbf.DBFDriver");
-                Connection conn = DriverManager.getConnection("jdbc:dbf:/" + dirDBF);
-                stmtDBFSaida = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
-                
-                try {
-                    ResultSet rs = stmtDBFSaida.executeQuery(SQLGenerico.getText());
-                    if (rs.next()) {
-                        clBuscaResultSet.setExecute("DELETE FROM " + tabelaEntrada.getText());
-                        rs.beforeFirst();
-                        ResultSet sr = clBuscaResultSet.getPesquisa("SELECT * FROM " + tabelaEntrada.getText());
-                        
-                        String colunasSaida[];
-                        String colunasEntrada[];
-                        
-                        colunasEntrada = ColunaEntrada.getText().split(",");
-                        
-                        while (rs.next()) {
-                            sr.moveToInsertRow();
-                            
-                            for (String colunasEntrada1 : colunasEntrada) {
-                                sr.updateString(colunasEntrada1, "" + rs.getString(colunasEntrada1));
-                                //escolheTipoVariavel(colunasEntrada[i], colunasSaida[i], sr, rs);
-                            }
-                            
-                            sr.insertRow();
-                        }
-                        rs.close();
-                        JOptionPane.showMessageDialog(this, "Importação de dados concluída com sucesso!");
-                    } else {
-                        JOptionPane.showMessageDialog(this, "Cadastro de Servidores\nNão foi encontrado registro para importação.");
-                    }
-                } catch (SQLException | HeadlessException e) {
-                    JOptionPane.showMessageDialog(this, "Erro 1:\n" + e);
-                }
-                
-            } catch (ClassNotFoundException | SQLException | HeadlessException e) {
-                JOptionPane.showMessageDialog(this, "Erro:\n" + e);
-            }
-        }
-        
-    }
-    
-    private void MSSQLServerparaMySQL() {
-        
-        try {
-            ResultSet rs = stmtMsSqlServerSaida.executeQuery(SQLGenerico.getText());
-            if (rs.next()) {
-                clBuscaResultSet.setExecute("DELETE FROM " + tabelaEntrada.getText());
-                rs.beforeFirst();
-                ResultSet sr = clBuscaResultSet.getPesquisa("SELECT * FROM " + tabelaEntrada.getText());
-                
-                String colunasEntrada[];
-                
-                colunasEntrada = ColunaEntrada.getText().split(",");
-                
-                while (rs.next()) {
-                    
-                    sr.moveToInsertRow();
-                    
-                    for (String colunasEntrada1 : colunasEntrada) {
-                        sr.updateString(colunasEntrada1.trim(), "" + rs.getString(colunasEntrada1.trim()));                        
-                    }
-                    
-                    sr.insertRow();
-                    
-                }
-                rs.close();
-                JOptionPane.showMessageDialog(this, "Tudo beleza!");
-            } else {
-                JOptionPane.showMessageDialog(this, "Cadastro de Servidores\nNão foi encontrado registro para importação.");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Cadastro de Servidores\n" + e);
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * *
-     * Função para escolher qual o tipo de entrada do banco de dados.
-     *
-     * @deprecated 
-     * @param entrada
-     * @param saida
-     * @param sr
-     * @param rs
-     */
-    private void escolheTipoVariavel(String entrada, String saida, ResultSet sr, ResultSet rs) {
-        
-        String entradas[] = entrada.split(" ");
-        String saidas[] = saida.split(" ");
-        
-        System.out.println("" + entradas[0] + "|" + entradas[1] + "|" + saidas[0] + "|" + saidas[1]);
-        
-        try {
-            if (saidas[0].equalsIgnoreCase("int")) {
-                sr.updateInt(entradas[1].toString(), rs.getInt(saidas[1]));
-            } else if (saidas[0].equalsIgnoreCase("char")) {
-                sr.updateString(entradas[1], rs.getString(saidas[1]));
-            } else if (saidas[0].equalsIgnoreCase("date")) {
-                sr.updateDate(entradas[1], rs.getDate(saidas[1]));
-            } else {
-                JOptionPane.showMessageDialog(this, "Escolha um tipo compatível:");
-            }
-        } catch (Exception e) {
-            JOptionPane.showMessageDialog(this, "Erro 1:\n" + e);
-            e.printStackTrace();
-        }
-        
-    }
-    
+    private Statement stmtPgEntrada = null;    
+    private Statement stmtSqlEntrada = null;    
+    private Statement stmtMsSqlServerSaida = null;   
+    private Statement stmtInterBaseSaida = null;  
 }
