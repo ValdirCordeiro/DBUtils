@@ -69,7 +69,7 @@ public class Conectar{
         try{
             return getInstance().createStatement(java.sql.ResultSet.TYPE_SCROLL_SENSITIVE,java.sql.ResultSet.CONCUR_UPDATABLE);
         }catch(Exception e){
-            System.out.print("Erro em utilitarios.Conexoes.Conectar.getStatemant(), n„o foi possivel retornar o Statement: "+e);
+            System.out.print("Erro em utilitarios.Conexoes.Conectar.getStatemant(), n√£o foi possivel retornar o Statement: "+e);
             return null;
         }
         
@@ -138,7 +138,7 @@ public class Conectar{
             FvaRetorno=adda.getHostAddress();
             adda=null;
         }catch(Exception e){
-            System.out.println("Ocorre um erro ao tentar recuperar o ip do host. Erro: "+e);
+            System.out.println("Ocorreu um erro ao tentar recuperar o ip do host. Erro: "+e);
         }
         return FvaRetorno;
     }
@@ -149,7 +149,7 @@ public class Conectar{
             FvaRetorno=adda.getHostName();
             adda=null;
         }catch(Exception e){
-            System.out.println("Ocorre um erro ao tentar recuperar o ip do host. Erro: "+e);
+            System.out.println("Ocorreu um erro ao tentar recuperar o ip do host. Erro: "+e);
         }
         return FvaRetorno;
     }

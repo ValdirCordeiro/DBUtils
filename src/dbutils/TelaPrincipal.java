@@ -215,7 +215,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jLabel38.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel38.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel38.setText("Separe as colunas por virgula e sem espaços.");
+        jLabel38.setText("Separe as colunas por virgula.");
 
         javax.swing.GroupLayout jPanel30Layout = new javax.swing.GroupLayout(jPanel30);
         jPanel30.setLayout(jPanel30Layout);
@@ -1155,7 +1155,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     sr.moveToInsertRow();
                     
                     for (String colunasEntrada1 : colunasEntrada) {
-                        sr.updateString(colunasEntrada1, "" + rs.getString(colunasEntrada1));                        
+                        sr.updateString(colunasEntrada1.trim(), "" + rs.getString(colunasEntrada1.trim()));                        
                     }
                     
                     sr.insertRow();
