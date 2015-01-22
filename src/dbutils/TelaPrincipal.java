@@ -5,22 +5,9 @@
  */
 package dbutils;
 
-import com.jtattoo.plaf.aluminium.AluminiumLookAndFeel;
-import conexoes.clBuscaResultSet;
-import java.awt.Color;
-import java.awt.HeadlessException;
-import java.util.List;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.sql.Statement;
-import java.util.ArrayList;
-import java.util.Properties;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 
 /**
  *
@@ -33,7 +20,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
      */
     public TelaPrincipal() {
         initComponents();
-
+        
         this.setLocationRelativeTo(null);
     }
 
@@ -167,9 +154,11 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
         jPanel4.setLayout(null);
 
+        jScrollPane2.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
         jScrollPane2.setToolTipText("");
 
         SQLGenerico.setColumns(20);
+        SQLGenerico.setLineWrap(true);
         SQLGenerico.setRows(5);
         jScrollPane2.setViewportView(SQLGenerico);
 
@@ -913,19 +902,19 @@ public class TelaPrincipal extends javax.swing.JFrame {
 
     private void ImportarGenericoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ImportarGenericoActionPerformed
         // TODO add your handling code here:
-
         if (comboConexão.getSelectedItem() == "SDBF --> POSTGRESQL") {
-            Conexoes.Importacoes.SDBFparaPostgreSQL(campoDirAdpm, tabelaEntrada, ColunaEntrada, SQLGenerico, stmtDBFSaida);
+            Conexoes.Importacoes.ImportacaoDeSDBF(campoDirAdpm, tabelaEntrada, ColunaEntrada, SQLGenerico, stmtDBFSaida);
         } else if (comboConexão.getSelectedItem() == "MSSQLSERVER --> MySQL") {
             Conexoes.Importacoes.ImportacaoDeMSSQLServer(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtMsSqlServerSaida);
-        } else if (comboConexão.getSelectedItem() == "POSTGRESQL --> MySQL" ) {
-            Conexoes.Importacoes.PostgreSQLparaMySQL(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtPgSqlSaida);
-        } else if (comboConexão.getSelectedItem() == "MSSQLSERVER --> POSTGRESQL"){
+        } else if (comboConexão.getSelectedItem() == "POSTGRESQL --> MySQL") {
+            Conexoes.Importacoes.ImportacaoDePostgreSQL(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtPgSqlSaida);
+        } else if (comboConexão.getSelectedItem() == "MSSQLSERVER --> POSTGRESQL") {
             Conexoes.Importacoes.ImportacaoDeMSSQLServer(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtMsSqlServerSaida);
-        }else {
+        } else if (comboConexão.getSelectedItem() == "MySQL --> POSTGRESQL") {
+            Conexoes.Importacoes.ImportacaoDeMySQL(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtMySqlSaida);
+        } else {
             JOptionPane.showMessageDialog(this, "Você deve selecionar a conexão configurada por você na aba conexões! ");
         }
-
     }//GEN-LAST:event_ImportarGenericoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -1074,6 +1063,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private Statement stmtPgSqlSaida = null;
     private Statement stmtPgEntrada = null;    
     private Statement stmtSqlEntrada = null;    
-    private Statement stmtMsSqlServerSaida = null;   
-    private Statement stmtInterBaseSaida = null;  
+    private Statement stmtMsSqlServerSaida = null;    
+    private Statement stmtInterBaseSaida = null;    
 }

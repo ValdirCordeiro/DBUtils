@@ -35,7 +35,7 @@ public class Conexoes {
         conexoes.Conectar.setUsurioBanco(user5.getText());
         conexoes.Conectar.setUrlConexao("jdbc:postgresql://" + conexoes.Conectar.getIpServidor() + ":" + conexoes.Conectar.getPorta() + "/" + conexoes.Conectar.getNomeDB());
         stmtPgEntrada = conexoes.Conectar.getStatement();
-     
+
         if (conexoes.clBuscaResultSet.getCount("SELECT DATNAME FROM PG_DATABASE where datname like '" + bd5.getText() + "' ORDER BY LOWER(DATNAME)  ") > 0) {
             status5.setForeground(new Color(0, 153, 51));
             status5.setText("Conectado");
@@ -52,7 +52,7 @@ public class Conexoes {
             Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
             Connection conn = java.sql.DriverManager.getConnection("jdbc:sqlserver://" + host3.getText() + ":" + porta3.getText() + ";databasename=" + bd3.getText(), user3.getText(), senha3.getText());
             stmtMsSqlServerSaida = conn.createStatement(java.sql.ResultSet.TYPE_SCROLL_SENSITIVE, java.sql.ResultSet.CONCUR_UPDATABLE);
-          
+
             int quantBancos = 0;
             ResultSet rs = stmtMsSqlServerSaida.executeQuery("SELECT     '' AS Expr1");
             if (rs.next()) {
@@ -72,7 +72,6 @@ public class Conexoes {
             status3.setForeground(new Color(204, 0, 0));
             status3.setText("Desconectado");
         }
-        
         return stmtMsSqlServerSaida;
     }
 
@@ -86,7 +85,7 @@ public class Conexoes {
         conexoes.Conectar.setUsurioBanco(user.getText());
         conexoes.Conectar.setUrlConexao("jdbc:mysql://" + conexoes.Conectar.getIpServidor() + ":" + conexoes.Conectar.getPorta() + "/" + conexoes.Conectar.getNomeDB());
         stmtSqlEntrada = conexoes.Conectar.getStatement();
-        
+
         if (conexoes.clBuscaResultSet.getCount("SHOW TABLES FROM " + bd.getText()) > 0) {
             status.setForeground(new Color(0, 153, 51));
             status.setText("Conectado");
@@ -94,7 +93,6 @@ public class Conexoes {
             status.setForeground(new Color(204, 0, 0));
             status.setText("Desconectado");
         }
-        
         return stmtSqlEntrada;
     }
 
@@ -134,7 +132,6 @@ public class Conexoes {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
         return stmtDBFSaida;
     }
 
@@ -169,7 +166,6 @@ public class Conexoes {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
         return stmtPgSqlSaida;
     }
 
@@ -199,7 +195,7 @@ public class Conexoes {
             status4.setForeground(new Color(204, 0, 0));
             status4.setText("Desconectado");
         }
-        return stmtInterBaseSaida;        
+        return stmtInterBaseSaida;
     }
 
     public static Statement getConexaoParadoxPadrao(JTextField campoDirParadox, Statement stmtParadoxSaida) {
@@ -210,17 +206,16 @@ public class Conexoes {
             System.out.println("url: " + sss);
             Connection conn = DriverManager.getConnection(sss);
             Connection conn2 = DriverManager.getConnection(sss);
-            stmtParadoxSaida = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);           
+            stmtParadoxSaida = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         } catch (Exception e) {
             e.printStackTrace();
         }
-        
         return stmtParadoxSaida;
     }
 
     public static class Importacoes {
 
-        public static void SDBFparaPostgreSQL(JTextField campoDirAdpm, JTextField tabelaEntrada, JTextArea ColunaEntrada,
+        public static void ImportacaoDeSDBF(JTextField campoDirAdpm, JTextField tabelaEntrada, JTextArea ColunaEntrada,
                 JTextArea SQLGenerico, Statement stmtDBFSaida) {
 
             if (campoDirAdpm.getText().trim().length() == 0) {
@@ -301,8 +296,8 @@ public class Conexoes {
                 e.printStackTrace();
             }
         }
-        
-         public static void PostgreSQLparaMySQL(JTextField tabelaEntrada, JTextArea SQLGenerico, JTextArea ColunaEntrada,
+
+        public static void ImportacaoDePostgreSQL(JTextField tabelaEntrada, JTextArea SQLGenerico, JTextArea ColunaEntrada,
                 Statement stmtPgSqlSaida) {
 
             try {
@@ -335,42 +330,40 @@ public class Conexoes {
                 e.printStackTrace();
             }
         }
-        
 
-        /**
-         * *
-         * Função para escolher qual o tipo de entrada do banco de dados.
-         *
-         * @deprecated
-         * @param entrada
-         * @param saida
-         * @param sr
-         * @param rs
-         */
-        private void escolheTipoVariavel(String entrada, String saida, ResultSet sr, ResultSet rs) {
-
-            String entradas[] = entrada.split(" ");
-            String saidas[] = saida.split(" ");
-
-            System.out.println("" + entradas[0] + "|" + entradas[1] + "|" + saidas[0] + "|" + saidas[1]);
+        public static void ImportacaoDeMySQL(JTextField tabelaEntrada, JTextArea SQLGenerico, JTextArea ColunaEntrada,
+                Statement stmtMySqlSaida) {
 
             try {
-                if (saidas[0].equalsIgnoreCase("int")) {
-                    sr.updateInt(entradas[1].toString(), rs.getInt(saidas[1]));
-                } else if (saidas[0].equalsIgnoreCase("char")) {
-                    sr.updateString(entradas[1], rs.getString(saidas[1]));
-                } else if (saidas[0].equalsIgnoreCase("date")) {
-                    sr.updateDate(entradas[1], rs.getDate(saidas[1]));
+                ResultSet rs = stmtMySqlSaida.executeQuery(SQLGenerico.getText());
+                if (rs.next()) {
+                    clBuscaResultSet.setExecute("DELETE FROM " + tabelaEntrada.getText());
+                    rs.beforeFirst();
+                    ResultSet sr = clBuscaResultSet.getPesquisa("SELECT * FROM " + tabelaEntrada.getText());
+
+                    String colunasEntrada[];
+
+                    colunasEntrada = ColunaEntrada.getText().split(",");
+
+                    while (rs.next()) {
+                        sr.moveToInsertRow();
+
+                        for (String colunasEntrada1 : colunasEntrada) {
+                            sr.updateString(colunasEntrada1.trim(), "" + rs.getString(colunasEntrada1.trim()));
+                        }
+
+                        sr.insertRow();
+                    }
+                    rs.close();
+                    JOptionPane.showMessageDialog(null, "Tudo beleza!");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Escolha um tipo compatível:");
+                    JOptionPane.showMessageDialog(null, "Cadastro de Servidores\nNão foi encontrado registro para importação.");
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Erro 1:\n" + e);
+                JOptionPane.showMessageDialog(null, "Cadastro de Servidores\n" + e);
                 e.printStackTrace();
             }
-
         }
-
     }// Fim da Classe static
-    
+
 } // Fim da classe
