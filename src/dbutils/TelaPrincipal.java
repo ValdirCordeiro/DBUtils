@@ -151,6 +151,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jButton23 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
 
         jPanel4.setLayout(null);
 

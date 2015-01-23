@@ -228,7 +228,7 @@ public class Conexoes {
                     stmtDBFSaida = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
 
                     try {
-                        ResultSet rs = stmtDBFSaida.executeQuery(SQLGenerico.getText());
+                        ResultSet rs = stmtDBFSaida.executeQuery(SQLGenerico.getText().trim());
                         if (rs.next()) {
                             clBuscaResultSet.setExecute("DELETE FROM " + tabelaEntrada.getText());
                             rs.beforeFirst();
@@ -267,7 +267,7 @@ public class Conexoes {
                 Statement stmtMsSqlServerSaida) {
 
             try {
-                ResultSet rs = stmtMsSqlServerSaida.executeQuery(SQLGenerico.getText());
+                ResultSet rs = stmtMsSqlServerSaida.executeQuery(SQLGenerico.getText().trim());
                 if (rs.next()) {
                     clBuscaResultSet.setExecute("DELETE FROM " + tabelaEntrada.getText());
                     rs.beforeFirst();
@@ -301,7 +301,7 @@ public class Conexoes {
                 Statement stmtPgSqlSaida) {
 
             try {
-                ResultSet rs = stmtPgSqlSaida.executeQuery(SQLGenerico.getText());
+                ResultSet rs = stmtPgSqlSaida.executeQuery(SQLGenerico.getText().trim());
                 if (rs.next()) {
                     clBuscaResultSet.setExecute("DELETE FROM " + tabelaEntrada.getText());
                     rs.beforeFirst();
@@ -335,7 +335,7 @@ public class Conexoes {
                 Statement stmtMySqlSaida) {
 
             try {
-                ResultSet rs = stmtMySqlSaida.executeQuery(SQLGenerico.getText());
+                ResultSet rs = stmtMySqlSaida.executeQuery(SQLGenerico.getText().trim());
                 if (rs.next()) {
                     clBuscaResultSet.setExecute("DELETE FROM " + tabelaEntrada.getText());
                     rs.beforeFirst();
