@@ -40,7 +40,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         ColunaEntrada = new javax.swing.JTextArea();
-        jLabel38 = new javax.swing.JLabel();
+        avisoColunas = new javax.swing.JLabel();
         jLabel49 = new javax.swing.JLabel();
         jLabel37 = new javax.swing.JLabel();
         tabelaEntrada = new javax.swing.JTextField();
@@ -167,9 +167,9 @@ public class TelaPrincipal extends javax.swing.JFrame {
         ColunaEntrada.setRows(5);
         jScrollPane3.setViewportView(ColunaEntrada);
 
-        jLabel38.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel38.setForeground(new java.awt.Color(255, 0, 0));
-        jLabel38.setText("Separe as colunas por virgula.");
+        avisoColunas.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
+        avisoColunas.setForeground(new java.awt.Color(255, 0, 0));
+        avisoColunas.setText("Separe as colunas por virgula.");
 
         jLabel49.setText("Nome da Tabela de Entrada:");
 
@@ -181,7 +181,12 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        comboConexão.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a conexão configurada", "SDBF --> POSTGRESQL", "MSSQLSERVER --> MySQL", "POSTGRESQL --> MySQL", "MSSQLSERVER --> POSTGRESQL", "MySQL --> POSTGRESQL" }));
+        comboConexão.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a conexão configurada", "SDBF --> POSTGRESQL", "MSSQLSERVER --> MySQL", "POSTGRESQL --> MySQL", "MSSQLSERVER --> POSTGRESQL", "MySQL --> POSTGRESQL", "PARADOX --> MySQL" }));
+        comboConexão.addItemListener(new java.awt.event.ItemListener() {
+            public void itemStateChanged(java.awt.event.ItemEvent evt) {
+                comboConexãoItemStateChanged(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -202,8 +207,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
                                 .addComponent(jLabel49)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(tabelaEntrada, javax.swing.GroupLayout.PREFERRED_SIZE, 226, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                    .addComponent(jLabel38, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(20, Short.MAX_VALUE))
+                    .addComponent(avisoColunas, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -221,7 +226,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 216, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(jLabel38)
+                .addComponent(avisoColunas, javax.swing.GroupLayout.PREFERRED_SIZE, 58, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
 
@@ -279,14 +284,15 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
-                .addGap(10, 10, 10)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGap(10, 10, 10)
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6, javax.swing.GroupLayout.PREFERRED_SIZE, 127, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel17, javax.swing.GroupLayout.PREFERRED_SIZE, 483, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 470, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel3Layout.setVerticalGroup(
@@ -314,7 +320,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel30Layout.createSequentialGroup()
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(19, 19, 19)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(27, Short.MAX_VALUE))
         );
         jPanel30Layout.setVerticalGroup(
             jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -322,7 +328,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel30Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel30Layout.createSequentialGroup()
-                        .addGap(0, 65, Short.MAX_VALUE)
+                        .addGap(0, 0, Short.MAX_VALUE)
                         .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -832,7 +838,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
         jPanel22.add(jLabel40);
         jLabel40.setBounds(10, 10, 60, 20);
 
-        campoDirParadox.setText("C:\\Compartilhamento\\D0837022013_21102013_1643\\trib\\guias\\226\\2013");
+        campoDirParadox.setText("D:\\Programas\\PDE\\SISGEP_RH\\226");
         jPanel22.add(campoDirParadox);
         campoDirParadox.setBounds(80, 10, 400, 20);
 
@@ -954,20 +960,21 @@ public class TelaPrincipal extends javax.swing.JFrame {
         if (comboConexão.getSelectedItem() == "SDBF --> POSTGRESQL") {
             Conexoes.Importacoes.ImportacaoDeSDBF(campoDirAdpm, tabelaEntrada, ColunaEntrada, SQLGenerico, stmtDBFSaida);
         } else if (comboConexão.getSelectedItem() == "MSSQLSERVER --> MySQL") {
-            Conexoes.Importacoes.ImportacaoDeMSSQLServer(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtMsSqlServerSaida);
+            Conexoes.Importacoes.Importacao(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtMsSqlServerSaida);
         } else if (comboConexão.getSelectedItem() == "POSTGRESQL --> MySQL") {
-            Conexoes.Importacoes.ImportacaoDePostgreSQL(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtPgSqlSaida);
+            Conexoes.Importacoes.Importacao(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtPgSqlSaida);
         } else if (comboConexão.getSelectedItem() == "MSSQLSERVER --> POSTGRESQL") {
-            Conexoes.Importacoes.ImportacaoDeMSSQLServer(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtMsSqlServerSaida);
+            Conexoes.Importacoes.Importacao(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtMsSqlServerSaida);
         } else if (comboConexão.getSelectedItem() == "MySQL --> POSTGRESQL") {
-            Conexoes.Importacoes.ImportacaoDeMySQL(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtMySqlSaida);
+            Conexoes.Importacoes.Importacao(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtMySqlSaida);
+        } else if (comboConexão.getSelectedItem() == "PARADOX --> MySQL") {
+            Conexoes.Importacoes.ImportacaoDeParadoxFichaFinanceira(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtParadoxSaida);
         } else {
             JOptionPane.showMessageDialog(this, "Você deve selecionar a conexão configurada por você na aba conexões! ");
         }
     }//GEN-LAST:event_ImportarGenericoActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
         dispose();
     }//GEN-LAST:event_jButton2ActionPerformed
 
@@ -978,6 +985,14 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private void tabelaEntradaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tabelaEntradaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_tabelaEntradaActionPerformed
+
+    private void comboConexãoItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_comboConexãoItemStateChanged
+//        if (comboConexão.getSelectedItem() == "PARADOX --> MySQL") {
+//            JOptionPane.showMessageDialog(this, "Coloque o nome da coluna de saida e de entrada separado por espaço e a cada registro separado por vírgula."); //avisoColunas.setText();
+//        } else {
+//            avisoColunas.setText("Separe as colunas por virgulas.");
+//        }
+    }//GEN-LAST:event_comboConexãoItemStateChanged
 
     /**
      * @param args the command line arguments
@@ -996,6 +1011,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JTextArea ColunaEntrada;
     private javax.swing.JButton ImportarGenerico;
     private javax.swing.JTextArea SQLGenerico;
+    private javax.swing.JLabel avisoColunas;
     private javax.swing.JTextField bd;
     private javax.swing.JTextField bd1;
     private javax.swing.JTextField bd2;
@@ -1054,7 +1070,6 @@ public class TelaPrincipal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel35;
     private javax.swing.JLabel jLabel36;
     private javax.swing.JLabel jLabel37;
-    private javax.swing.JLabel jLabel38;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel40;
     private javax.swing.JLabel jLabel41;

@@ -100,7 +100,7 @@ public class Conexoes {
             JLabel status1) {//Saida
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            Connection conn = java.sql.DriverManager.getConnection("jdbc:mysql://" + host1.getText() + ":" + porta1.getText() + "/" + bd1.getText(), "root", "427623");
+            Connection conn = java.sql.DriverManager.getConnection("jdbc:mysql://" + host1.getText() + ":" + porta1.getText() + "/" + bd1.getText(), "root", "");
             stmtMySqlSaida = conn.createStatement(java.sql.ResultSet.TYPE_SCROLL_SENSITIVE, java.sql.ResultSet.CONCUR_UPDATABLE);
 
             int quantBancos = 0;
@@ -200,12 +200,12 @@ public class Conexoes {
 
     public static Statement getConexaoParadoxPadrao(JTextField campoDirParadox, Statement stmtParadoxSaida) {
         try {
-            String dirDBF = campoDirParadox.getText();
+            String dirDBF = campoDirParadox.getText();//.replace("\\", "/");
             Class.forName("com.hxtt.sql.paradox.ParadoxDriver");
+           // Class.forName("com.googlecode.paradox.Driver");
             String sss = "jdbc:paradox:/" + dirDBF;
             System.out.println("url: " + sss);
             Connection conn = DriverManager.getConnection(sss);
-            Connection conn2 = DriverManager.getConnection(sss);
             stmtParadoxSaida = conn.createStatement(ResultSet.TYPE_SCROLL_INSENSITIVE, ResultSet.CONCUR_UPDATABLE);
         } catch (Exception e) {
             e.printStackTrace();
@@ -263,11 +263,20 @@ public class Conexoes {
 
         }
 
-        public static void ImportacaoDeMSSQLServer(JTextField tabelaEntrada, JTextArea SQLGenerico, JTextArea ColunaEntrada,
-                Statement stmtMsSqlServerSaida) {
+        /**
+         * *
+         * Importação de PostgreSQL, MySQL e SQLServer
+         *
+         * @param tabelaEntrada
+         * @param SQLGenerico
+         * @param ColunaEntrada
+         * @param stmtSaida
+         */
+        public static void Importacao(JTextField tabelaEntrada, JTextArea SQLGenerico, JTextArea ColunaEntrada,
+                Statement stmtSaida) {
 
             try {
-                ResultSet rs = stmtMsSqlServerSaida.executeQuery(SQLGenerico.getText().trim());
+                ResultSet rs = stmtSaida.executeQuery(SQLGenerico.getText().trim());
                 if (rs.next()) {
                     clBuscaResultSet.setExecute("DELETE FROM " + tabelaEntrada.getText());
                     rs.beforeFirst();
@@ -289,78 +298,85 @@ public class Conexoes {
                     rs.close();
                     JOptionPane.showMessageDialog(null, "Tudo beleza!");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Cadastro de Servidores\nNão foi encontrado registro para importação.");
+                    JOptionPane.showMessageDialog(null, "Erro: \nNão foi encontrado registro para importação.");
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Cadastro de Servidores\n" + e);
+                JOptionPane.showMessageDialog(null, "Erro: \n" + e);
                 e.printStackTrace();
             }
         }
 
-        public static void ImportacaoDePostgreSQL(JTextField tabelaEntrada, JTextArea SQLGenerico, JTextArea ColunaEntrada,
-                Statement stmtPgSqlSaida) {
+        public static void ImportacaoDeParadox(JTextField tabelaEntrada, JTextArea SQLGenerico, JTextArea ColunaEntrada,
+                Statement stmtParadoxSaida) {
 
             try {
-                ResultSet rs = stmtPgSqlSaida.executeQuery(SQLGenerico.getText().trim());
-                if (rs.next()) {
+                ResultSet rsParadox = stmtParadoxSaida.executeQuery(SQLGenerico.getText().trim());
+                if (rsParadox.next()) {
                     clBuscaResultSet.setExecute("DELETE FROM " + tabelaEntrada.getText());
-                    rs.beforeFirst();
-                    ResultSet sr = clBuscaResultSet.getPesquisa("SELECT * FROM " + tabelaEntrada.getText());
+                    rsParadox.beforeFirst();
+                    ResultSet srEntrada = clBuscaResultSet.getPesquisa("SELECT * FROM " + tabelaEntrada.getText());
 
-                    String colunasEntrada[];
+                    String colunasEntrada[] = ColunaEntrada.getText().split(",");
 
-                    colunasEntrada = ColunaEntrada.getText().split(",");
-
-                    while (rs.next()) {
-                        sr.moveToInsertRow();
+                    System.out.println(colunasEntrada.length);
+                    while (rsParadox.next()) {
+                        srEntrada.moveToInsertRow();
 
                         for (String colunasEntrada1 : colunasEntrada) {
-                            sr.updateString(colunasEntrada1.trim(), "" + rs.getString(colunasEntrada1.trim()));
+                            String aux[] = colunasEntrada1.split(" ");
+
+                            System.out.println(aux[1] + " | " + rsParadox.getString(aux[0]));
+                            srEntrada.updateString(aux[1], "" + rsParadox.getString(aux[0]));
                         }
 
-                        sr.insertRow();
+                        srEntrada.insertRow();
                     }
-                    rs.close();
+                    rsParadox.close();
                     JOptionPane.showMessageDialog(null, "Tudo beleza!");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Cadastro de Servidores\nNão foi encontrado registro para importação.");
+                    JOptionPane.showMessageDialog(null, "Erro: \nNão foi encontrado registro para importação.");
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Cadastro de Servidores\n" + e);
+                JOptionPane.showMessageDialog(null, "Erro: \n" + e);
                 e.printStackTrace();
             }
         }
 
-        public static void ImportacaoDeMySQL(JTextField tabelaEntrada, JTextArea SQLGenerico, JTextArea ColunaEntrada,
-                Statement stmtMySqlSaida) {
+        public static void ImportacaoDeParadoxFichaFinanceira(JTextField tabelaEntrada, JTextArea SQLGenerico, JTextArea ColunaEntrada,
+                Statement stmtParadoxSaida) {
 
-            try {
-                ResultSet rs = stmtMySqlSaida.executeQuery(SQLGenerico.getText().trim());
-                if (rs.next()) {
-                    clBuscaResultSet.setExecute("DELETE FROM " + tabelaEntrada.getText());
-                    rs.beforeFirst();
-                    ResultSet sr = clBuscaResultSet.getPesquisa("SELECT * FROM " + tabelaEntrada.getText());
+            try {                
+                ResultSet rsParadox = stmtParadoxSaida.executeQuery(" SELECT C026_CD_FUNC, C026_MOVIMENTO, "
+                        + " C026_CD_EVENTO, C026_VALOR FROM Tabelaficha.DB");
+                
+               // ResultSet rsParadox = stmtParadoxSaida.executeQuery(" SELECT * FROM Tb026encerramento2.DB");
+                if (rsParadox.next()) {
+                   clBuscaResultSet.setExecute("DELETE FROM " + tabelaEntrada.getText());
+                    rsParadox.beforeFirst();
+                    ResultSet srEntrada = clBuscaResultSet.getPesquisa(" SELECT * FROM " + tabelaEntrada.getText());
 
-                    String colunasEntrada[];
+                    while (rsParadox.next()) {
+                        srEntrada.moveToInsertRow();
 
-                    colunasEntrada = ColunaEntrada.getText().split(",");
+                        String movimento = rsParadox.getString("C026_MOVIMENTO");
+                        String ano = movimento.substring(0, 4);
+                        String mes = movimento.substring(4, 6);     
 
-                    while (rs.next()) {
-                        sr.moveToInsertRow();
-
-                        for (String colunasEntrada1 : colunasEntrada) {
-                            sr.updateString(colunasEntrada1.trim(), "" + rs.getString(colunasEntrada1.trim()));
-                        }
-
-                        sr.insertRow();
+                        srEntrada.updateString("CODIGO", "" + rsParadox.getString("C026_CD_FUNC"));
+                        srEntrada.updateString("CODPROVDESCONTO", "" + rsParadox.getString("C026_CD_EVENTO"));
+                        srEntrada.updateString("VALOR", "" + rsParadox.getString("C026_VALOR"));
+                        srEntrada.updateString("ANO", ano);
+                        srEntrada.updateString("MES", mes);
+                        
+                        srEntrada.insertRow();
                     }
-                    rs.close();
+                    rsParadox.close();
                     JOptionPane.showMessageDialog(null, "Tudo beleza!");
                 } else {
-                    JOptionPane.showMessageDialog(null, "Cadastro de Servidores\nNão foi encontrado registro para importação.");
+                    JOptionPane.showMessageDialog(null, "Erro: \nNão foi encontrado registro para importação.");
                 }
             } catch (Exception e) {
-                JOptionPane.showMessageDialog(null, "Cadastro de Servidores\n" + e);
+                JOptionPane.showMessageDialog(null, "Erro: \n" + e);
                 e.printStackTrace();
             }
         }
