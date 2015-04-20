@@ -10,7 +10,8 @@ import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 
 /**
- *
+ * Tela Principal
+ * 
  * @author Valdir Cordeiro
  */
 public class TelaPrincipal extends javax.swing.JFrame {
