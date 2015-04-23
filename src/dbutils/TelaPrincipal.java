@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
 
 /**
  * Tela Principal
- * 
+ *
  * @author Valdir Cordeiro
  */
 public class TelaPrincipal extends javax.swing.JFrame {
@@ -182,7 +182,7 @@ public class TelaPrincipal extends javax.swing.JFrame {
             }
         });
 
-        comboConexão.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a conexão configurada", "SDBF --> POSTGRESQL", "MSSQLSERVER --> MySQL", "POSTGRESQL --> MySQL", "MSSQLSERVER --> POSTGRESQL", "MySQL --> POSTGRESQL", "PARADOX --> MySQL" }));
+        comboConexão.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Selecione a conexão configurada", "SDBF --> POSTGRESQL", "MSSQLSERVER --> MySQL", "POSTGRESQL --> MySQL", "MSSQLSERVER --> POSTGRESQL", "MySQL --> POSTGRESQL", "PARADOX --> MySQL", "POSTGRESQL --> POSTGRESQL", " " }));
         comboConexão.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
                 comboConexãoItemStateChanged(evt);
@@ -970,6 +970,8 @@ public class TelaPrincipal extends javax.swing.JFrame {
             Conexoes.Importacoes.Importacao(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtMySqlSaida);
         } else if (comboConexão.getSelectedItem() == "PARADOX --> MySQL") {
             Conexoes.Importacoes.ImportacaoDeParadoxFichaFinanceira(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtParadoxSaida);
+        } else if (comboConexão.getSelectedItem() == "POSTGRESQL --> POSTGRESQL") {
+            Conexoes.Importacoes.Importacao(tabelaEntrada, SQLGenerico, ColunaEntrada, stmtPgSqlSaida);
         } else {
             JOptionPane.showMessageDialog(this, "Você deve selecionar a conexão configurada por você na aba conexões! ");
         }
